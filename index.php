@@ -77,13 +77,13 @@ $renderName = new RenderUnicornByName();
     ?>
 
     <h1> My Unicorns by Name </h1>
-    <ul>
+    <ol>
     <?php
         foreach($myUnicorns->getUnicorns() as $unicorn) {
             echo $renderName->renderByName($unicorn);
         }
     ?>
-    </ul>
+    </ol>
 
 </body>
 </html>
