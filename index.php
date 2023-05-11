@@ -1,7 +1,6 @@
 <?php
 
 class Unicorn { //gör objektets struktur och värden
-
     private $name = "";
     private $color = "pink";
     private $age = 0;
@@ -12,15 +11,19 @@ class Unicorn { //gör objektets struktur och värden
         $this->age = $age;
     }
 
-    function getMessage(): string {//funktion för att skriva ut unicornsen
+    function getMessage(): string { //funktion för att skriva ut unicornsen
         return "Unicorn {$this->name} says hello I am {$this->color} and I am {$this->age} years old!";
+    }
+
+    function getName(): string {
+        return "Name: {$this->name}";
     }
 }
 
 class UnicornList { 
-    private $unicorns = []; //deklarerar arrayen av hundar. Tom, ska passa in värden
+    private $unicorns = []; //deklarerar arrayen. Tom, ska passa in värden
 
-    function __construct($unicorns) { //konstruktor som säger att variabel $dogs är dogs genom att passa in den som ett argument. Constuctor definerar de framtida objekten
+    function __construct($unicorns) { //konstruktor som säger att variabel $unicorn är unicorn genom att passa in den som ett argument. Constuctor definerar de framtida objekten
         $this->unicorns = $unicorns;
     }
 
@@ -30,9 +33,14 @@ class UnicornList {
 }
 
 class RenderUnicorn { //renderar och echo ut listan på unicorns genom att anropa funktionen i unicorns
-
-    function renderMessage(Unicorn $unicorn) { //går ej typsäkra denna
+    function renderMessage(Unicorn $unicorn) { //går ej typsäkra denna???
         echo "<p>{$unicorn->getMessage()}</p>";
+    }
+}
+
+class RenderUnicornByName {
+    function renderByName(Unicorn $unicorn) {
+        echo "<li>{$unicorn->getName()}</li>";
     }
 }
 
@@ -45,13 +53,8 @@ $myUnicorns = new UnicornList([
 ]);
 
 $render = new RenderUnicorn();
+$renderName = new RenderUnicornByName();
 
-//hårdkodad lista på unicrons
-//$v = new Unicorn("Lisa", "blue", 5);
-
-//$renderer = new RenderUnicorn();//
-//$renderer->renderMessage($u);//anropar funktionen i renderunicorn
-//$renderer->renderMessage($v);//anropar funktionen i renderunicorn
 
 ?>
 
@@ -61,16 +64,26 @@ $render = new RenderUnicorn();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Unicorns</title>
 </head>
 <body>
 <h1>Unicorns</h1>
+
     <?php
 
-        foreach($myUnicorns->getUnicorns() as $unicorn) { //loopa igenom myDogs arrayen som är new DogHotell med renderar lista
-            echo $render->renderMessage($unicorn); //skriv ut varje hund genom att gå in i funktionen render som i sin tur är klassen renderdog ...
-            //som i sin tur kör funktionen renderDogInfo som går in och skriver ut från/i klassen dog och definerart värden och egenskaper
+        foreach($myUnicorns->getUnicorns() as $unicorn) { 
+            echo $render->renderMessage($unicorn); 
         }
     ?>
+
+    <h1> My Unicorns by Name </h1>
+    <ul>
+    <?php
+        foreach($myUnicorns->getUnicorns() as $unicorn) {
+            echo $renderName->renderByName($unicorn);
+        }
+    ?>
+    </ul>
+
 </body>
 </html>
